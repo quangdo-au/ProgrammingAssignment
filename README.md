@@ -30,7 +30,13 @@ num_days(DateTime $startDate, DateTime $endDate [, int $outputFormat [, DateTime
   * This variable ($adelaideZone) would then be passed as either $timezone1 or $timezone2 in the function.
 
 ### Function 2: Number of Week Days
+```php
+num_week_days(DateTime $startDate, DateTime $endDate [, int $outputFormat [, DateTimeZone $timezone1 [, DateTimeZone timezone2]]])
+```
 Refer to Function 1. As opposed to days, the function returns the number of *week* days.
 
 ### Function 3: Number of Weeks
+```php
+num_weeks(DateTime $startDate, DateTime $endDate [, int $outputFormat [, DateTimeZone $timezone1 [, DateTimeZone timezone2]]])
+```
 Refer to Function 1. As opposed to days, the function returns the number of *weeks*.
