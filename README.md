@@ -40,3 +40,10 @@ Refer to Function 1. As opposed to days, the function returns the number of *wee
 num_weeks(DateTime $startDate, DateTime $endDate [, int $outputFormat [, DateTimeZone $timezone1 [, DateTimeZone timezone2]]])
 ```
 Refer to Function 1. As opposed to days, the function returns the number of *weeks*.
+
+## Unit Tests
+As previously explained, the unit tests require "phpunit-5.phar" to be located in the same directory as the project PHP files. The test can be run (if *php* itself is part of the classpath) via the following command:
+```bash
+php phpunit-5.phar unit_tests.php
+```
+The unit tests do not require an active web server.
