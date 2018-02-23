@@ -19,7 +19,7 @@ The following describes the usage of the three requested functions (which are lo
 num_days(DateTime $startDate, DateTime $endDate [, int $outputFormat [, DateTimeZone $timezone1 [, DateTimeZone timezone2]]])
 ```
 * num_days accepts a starting date and an ending date at a minimum. These values must be of the type DateTime. Actual order of the dates does not matter.
-* The third paramter (and first optional parameter) must be between -1 and 3 (inclusive).
+* The third parameter (and first optional parameter) of $outputFormat must be between -1 and 3 (inclusive).
   * -1 indicates that the return value will be the default--the number of days.
   * 0 indicates that a conversion of seconds is performed and returned. Values of 1,2 and 3 refer to conversions of minutes, hours and years, respectively.
 * The last two parameters refer to the timezones for the starting date and ending date, in that order. These values should be DateTimeZone objects containing the required (PHP-supported) timezone.
@@ -28,7 +28,10 @@ num_days(DateTime $startDate, DateTime $endDate [, int $outputFormat [, DateTime
         $adelaideZone = new DateTimeZone('Australia/Adelaide');
         ```
   * This variable ($adelaideZone) would then be passed as either $timezone1 or $timezone2 in the function.
-
+* **Errors**:
+  *  A return value of -1 indicates that invalid dates were provided and DateTime objects must be used for these parameters.
+  *  A return value of -2 indicates an invalid output format was specified. This value must be between -1 and 3 (inclusive).
+  
 ### Function 2: Number of Week Days
 ```php
 num_week_days(DateTime $startDate, DateTime $endDate [, int $outputFormat [, DateTimeZone $timezone1 [, DateTimeZone timezone2]]])

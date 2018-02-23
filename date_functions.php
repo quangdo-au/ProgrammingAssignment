@@ -1,5 +1,11 @@
 <!-- Author: Quang Do-->
 <?php
+/* Return Error Codes:
+ *  -1 = Invalid dates provided, DateTime objects must be used.
+ *  -2 = Invalid output format specified, these values must be between -1 and 3 (inclusive).
+ */
+
+
 //Global Constants
 const DAYS_TO_SECONDS = 86400; //Equal to 24 * 60 * 60
 const DAYS_TO_MINUTES = 1440; //Equal to 24 * 60
@@ -8,10 +14,10 @@ const DAYS_TO_YEARS = 365; //Approximate--could use 365.25
 const FORMATS = array(' Seconds', ' Minutes', ' Hours', ' Years');
 
 //Challenge Q1+Q4,5
-function num_days($startDate, $endDate, $outputFormat = -1)
+function num_days($startDate, $endDate, $outputFormat = -1, $startTimezone = null, $endTimezone = null)
 {
     //Check if dates are valid
-    if (!date_validator($startDate) || !date_validator($startDate)) {
+    if (!date_validator($startDate) || !date_validator($endDate)) {
         return -1;
     }
 
@@ -28,7 +34,7 @@ function num_days($startDate, $endDate, $outputFormat = -1)
 }
 
 //Challenge Q2+Q4,5
-function num_week_days($startDate, $endDate, $outputFormat = -1)
+function num_week_days($startDate, $endDate, $outputFormat = -1, $startTimezone = null, $endTimezone = null)
 {
     $begin = $startDate;
     $end = $endDate;
@@ -57,7 +63,7 @@ function num_week_days($startDate, $endDate, $outputFormat = -1)
 }
 
 //Challenge Q3+Q4,5
-function num_weeks($startDate, $endDate, $outputFormat = -1)
+function num_weeks($startDate, $endDate, $outputFormat = -1, $startTimezone = null, $endTimezone = null)
 {
     $begin = $startDate;
     $end = $endDate;
@@ -119,11 +125,11 @@ function day_convert($duration, $outputFormat)
                 return $duration / DAYS_TO_YEARS;
                 break;
             default:
-                return -1;
+                return -2;
                 break;
         }
     } else {
-        return -1;
+        return -2;
     }
 }
 
