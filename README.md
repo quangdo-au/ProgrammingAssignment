@@ -12,7 +12,7 @@ This project consists of three PHP files:
 unit_tests.php relies on the PHPUnit framework (specifically a PHP Archive of version 5, "phpunit-5.phar") available [here](https://phar.phpunit.de/phpunit-5.phar). This PHAR file should be located in the same directory as the PHP files. The three PHP files should be placed in the root directory of your web server (e.g. www/ in the case of Apache).
 
 ## Functions
-The following describes the usage of the three requested functions:
+The following describes the usage of the three requested functions (which are located in date_functions.php). Please "include" this file in your own PHP file in order to run these methods.
 
 ### Function 1: Number of Days
 ```php
