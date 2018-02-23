@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Date </title>
+    <title>DateTime Program</title>
 </head>
 
 <body>
@@ -57,7 +57,16 @@ if (isset($_POST['function_form'])) {
         This form calculates the number of <?php echo $description; ?> between the starting date and the ending date.
         <p><label>Start Date: <input type="date" name="calculate_form[start_date]"/></label></p>
         <p><label>End Date: <input type="date" name="calculate_form[end_date]"/></label></p>
-        <p><input type="submit" value="Calculate"/></p>
+        <p><label>Output Type:
+                <select name="calculate_form[output_format]">
+                    <option value="-1" selected>Default</option>
+                    <option value="0">Seconds</option>
+                    <option value="1">Minutes</option>
+                    <option value="2">Hours</option>
+                    <option value="3">Years</option>
+                </select>
+            </label></p>
+        <input type="submit" value="Calculate"/>
     </fieldset>
 </form>
 
@@ -71,6 +80,7 @@ if (isset($_POST['calculate_form'])) {
         //Retrieve form values
         $startDate = $values['start_date'];
         $endDate = $values['end_date'];
+        $outputFormat = $values['output_format'];
 
         try {
             $startDate = new DateTime($startDate);
@@ -80,21 +90,41 @@ if (isset($_POST['calculate_form'])) {
             return; //End execution
         }
 
+        $endText = '';
+        //Check if an output format has been chosen and change the text
+        if ($outputFormat >= 0 && $outputFormat < count(FORMATS)) {
+            $endText = $endText . FORMATS[$outputFormat];
+        }
+
         $output = "Between " . $startDate->format('l, d-M-Y H:i:s') . " and " . $endDate->format('l, d-M-Y H:i:s') . ": ";
+
+        //Process the user's input
         if ($selectedID == 0) {
-            $numDays = numDays($startDate, $endDate);
-            $dayText = ($numDays == 1) ? ' day.': ' days.'; //Ensuring plural/singular form is correctly used
-            echo $output . $numDays . $dayText;
+            $numDays = num_days($startDate, $endDate, $outputFormat);
+            if ($endText == '') {
+                $endText = ($numDays == 1 && $outputFormat == -1) ? ' day.' : ' days.'; //Ensuring plural/singular form is correctly used for default output
+            }
+            echo $output . $numDays . $endText;
+
         } else if ($selectedID == 1) {
-            $numWeekDays = numWeekDays($startDate, $endDate);
-            $weekDayText = ($numWeekDays == 1) ? ' week day.': ' week days.';
-            echo $output . $numWeekDays . $weekDayText;
+            $numWeekDays = num_week_days($startDate, $endDate, $outputFormat);
+            if ($endText == '') {
+                $endText = ($numWeekDays == 1) ? ' week day.' : ' week days.';
+            }
+
+            echo $output . $numWeekDays . $endText;
+
         } else if ($selectedID == 2) {
-            $numWeeks = numWeeks($startDate, $endDate);
-            $weekText = ($numWeeks == 1) ? ' week.': ' weeks.';
-            echo $output . $numWeeks . $weekText;
+            $numWeeks = num_weeks($startDate, $endDate);
+            if ($endText == '') {
+                $endText = ($numWeeks == 1) ? ' week.' : ' weeks.';
+            }
+
+            echo $output . $numWeeks . $endText;
         }
     }
+} else {
+    echo "Please enter in all required values.";
 }
 ?>
 
