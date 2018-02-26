@@ -11,14 +11,18 @@ This project consists of three PHP files:
 
 unit_tests.php relies on the PHPUnit framework (specifically a PHP Archive of version 5, "phpunit-5.phar") available [here](https://phar.phpunit.de/phpunit-5.phar). This PHAR file should be located in the same directory as the PHP files. The three PHP files should be placed in the root directory of your web server (e.g. www/ in the case of Apache).
 
+## index.php
+index.php is simply a GUI for access to the date functions. It is mainly there for simple debugging purposes as it does not currently support time (e.g. hours, minutes and seconds). Please 'include' the date_functions.php file in your own index.php file for direct access to the functions.
+
 ## Functions
-The following describes the usage of the three requested functions (which are located in date_functions.php). Please "include" this file in your own PHP file in order to run these methods.
+The following describes the usage of the three requested functions (which are located in date_functions.php). Please 'include' this file in your own PHP file in order to run these methods.
 
 ### Function 1: Number of Days
 ```php
 num_days(DateTime $startDate, DateTime $endDate [, int $outputFormat [, DateTimeZone $timezone1 [, DateTimeZone timezone2]]])
 ```
 * num_days accepts a starting date and an ending date at a minimum. These values must be of the type DateTime. Actual order of the dates does not matter.
+  * The DateTime objects can have their timezones set before being passed to this function. This means that the 4th and 5th parameters would not be required. Including the 4th and/or 5th parameters will take preferance over the timezone information stored in the DateTime objects.
 * The third parameter (and first optional parameter) of $outputFormat must be between -1 and 3 (inclusive).
   * -1 indicates that the return value will be the default--the number of days.
   * 0 indicates that a conversion of seconds is performed and returned. Values of 1,2 and 3 refer to conversions of minutes, hours and years, respectively.
@@ -28,6 +32,7 @@ num_days(DateTime $startDate, DateTime $endDate [, int $outputFormat [, DateTime
         $adelaideZone = new DateTimeZone('Australia/Adelaide');
         ```
   * This variable ($adelaideZone) would then be passed as either $timezone1 or $timezone2 in the function.
+  * Naturally, a timezone may be set for only one DateTime if required.
 * **Errors**:
   *  A return value of -1 indicates that invalid dates were provided and DateTime objects must be used for these parameters.
   *  A return value of -2 indicates an invalid output format was specified. This value must be between -1 and 3 (inclusive).
